@@ -1,0 +1,17 @@
+{
+  "name": "SRP",
+  "version": "1.0.0",
+  "description": "Exercise template for share-your-knowhow",
+  "main": "main.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon ./src/index.ts"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.14"
+  },
+  "dependencies": {
+    "axios": "0.26.0"
+  }
+}
