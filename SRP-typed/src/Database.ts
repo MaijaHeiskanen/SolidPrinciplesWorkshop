@@ -2,9 +2,13 @@
 
 export class Database {
 	async query(text: string, params: (string | number)[]) {
-		return 1;
+		return new Promise<number>((resolve, reject) => {
+			setTimeout(() => resolve(1), 1000);
+		});
 	}
 	async execute(text: string, params: (string | number)[]) {
-		return 1;
+		return new Promise<number>((resolve, reject) => {
+			setTimeout(() => resolve(1), 1000);
+		});
 	}
 }

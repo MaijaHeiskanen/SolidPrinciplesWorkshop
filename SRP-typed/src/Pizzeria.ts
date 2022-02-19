@@ -41,17 +41,25 @@ export class Pizzeria {
 			throw new ToppingNotFoundException(notFoundToppings);
 		}
 
-		let pizzaPrice = Pizzeria.pizzas[pizza] + additionalToppings.map((topping) => Pizzeria.toppings[topping]).reduce((prev, next) => prev + next);
+		let pizzaPrice = Pizzeria.pizzas[pizza];
+
+		if (additionalToppings.length > 0) {
+			pizzaPrice += additionalToppings.map((topping) => Pizzeria.toppings[topping]).reduce((prev, next) => prev + next);
+		}
 
 		if (additionalToppings.length >= 5 && pizza !== "Fantasia") {
 			pizzaPrice *= 0.95;
 		}
 
 		const db = new Database();
-		let customerId = await db.query("SELECT ID FROM Customers WHERE Email = $1", [ordererEmail]);
+		let customerId: number | undefined = undefined;
+
+		customerId = await db.query("SELECT ID FROM Customers WHERE Email = $1", [ordererEmail]);
 
 		if (customerId == undefined) {
-			customerId = await db.execute("INSERT INTO Customers (Email) VALUES ($1)", [ordererEmail]);
+			await db.execute("INSERT INTO Customers (Email) VALUES ($1)", [ordererEmail]);
+
+			customerId = await db.query("SELECT ID FROM Customers WHERE Email = $1", [ordererEmail]);
 		}
 
 		await db.execute("INSERT INTO Orders (OrdererEmail, Pizza, ListOfToppings, Price) Values ($1, $2, $3, $4)", [ordererEmail, pizza, additionalToppings.join(), pizzaPrice]);
