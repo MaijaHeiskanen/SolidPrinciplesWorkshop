@@ -7,7 +7,7 @@ Overall the code is quite similar and should be as usable as the original for th
 
 Lucky you, both are available. As you may guess, the JavaScript version in `./SRP` folder and the TypeScript version in `./SRP-typed` folder.
 
-## Wanna run the app and get those errors?
+## How to run the app?
 
 Go to `./SRP` or `./SRP-typed` and run `yarn install`.
 Then you can run `yarn start` to run this app.
